@@ -1,7 +1,7 @@
 import random
 import math
 
-name = "script"
+name = "NullCodeEM"
 
 
 def moveTo(x, y, Pirate):
@@ -27,6 +27,7 @@ def moveAway(x, y, Pirate):
     else:
         return (position[1] > y) * 2 + 1
 
+
 def circleAround(x, y, radius, Pirate, initial="abc", clockwise=True):
     position = Pirate.getPosition()
     rx = position[0]
@@ -51,7 +52,8 @@ def circleAround(x, y, radius, Pirate, initial="abc", clockwise=True):
             pos[(index + (clockwise * 2) - 1) % len(pos)][1],
             Pirate,
         )
-    
+
+
 def checkIsland(pirate):
     up = pirate.investigate_up()
     down = pirate.investigate_down()
