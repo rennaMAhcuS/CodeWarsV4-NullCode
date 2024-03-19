@@ -1,7 +1,7 @@
 import random
 import math
 
-name = "NullCodeEM"
+name = "Hmm..."
 
 
 def moveTo(x, y, Pirate):
@@ -63,6 +63,15 @@ def checkIsland(pirate):
         return True
     else:
         return False
+
+
+'''
+0 - Don't move (Stay at current)
+1 - Move UP
+2 - Move RIGHT
+3 - Move DOWN
+4 - Move LEFT
+'''
 
 
 def ActPirate(pirate):
