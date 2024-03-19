@@ -26,46 +26,45 @@ def ActPirate(pirate):
     x, y = pirate.getPosition()
     pirate.setSignal("")
     s = pirate.trackPlayers()
-    
+
     if (
-        (up == "island1" and s[0] != "myCaptured")
-        or (up == "island2" and s[1] != "myCaptured")
-        or (up == "island3" and s[2] != "myCaptured")
+            (up == "island1" and s[0] != "myCaptured")
+            or (up == "island2" and s[1] != "myCaptured")
+            or (up == "island3" and s[2] != "myCaptured")
     ):
         s = up[-1] + str(x) + "," + str(y - 1)
         pirate.setTeamSignal(s)
 
     if (
-        (down == "island1" and s[0] != "myCaptured")
-        or (down == "island2" and s[1] != "myCaptured")
-        or (down == "island3" and s[2] != "myCaptured")
+            (down == "island1" and s[0] != "myCaptured")
+            or (down == "island2" and s[1] != "myCaptured")
+            or (down == "island3" and s[2] != "myCaptured")
     ):
         s = down[-1] + str(x) + "," + str(y + 1)
         pirate.setTeamSignal(s)
 
     if (
-        (left == "island1" and s[0] != "myCaptured")
-        or (left == "island2" and s[1] != "myCaptured")
-        or (left == "island3" and s[2] != "myCaptured")
+            (left == "island1" and s[0] != "myCaptured")
+            or (left == "island2" and s[1] != "myCaptured")
+            or (left == "island3" and s[2] != "myCaptured")
     ):
         s = left[-1] + str(x - 1) + "," + str(y)
         pirate.setTeamSignal(s)
 
     if (
-        (right == "island1" and s[0] != "myCaptured")
-        or (right == "island2" and s[1] != "myCaptured")
-        or (right == "island3" and s[2] != "myCaptured")
+            (right == "island1" and s[0] != "myCaptured")
+            or (right == "island2" and s[1] != "myCaptured")
+            or (right == "island3" and s[2] != "myCaptured")
     ):
         s = right[-1] + str(x + 1) + "," + str(y)
         pirate.setTeamSignal(s)
 
-    
     if pirate.getTeamSignal() != "":
         s = pirate.getTeamSignal()
         l = s.split(",")
         x = int(l[0][1:])
         y = int(l[1])
-    
+
         return moveTo(x, y, pirate)
 
     else:
