@@ -1,5 +1,5 @@
 import random
-import math
+# import math
 
 name = "Hmm..."
 
@@ -80,5 +80,7 @@ def ActPirate(pirate):
 
 
 def ActTeam(team):
-    # complete this function
+    team.buildWalls(1)
+    team.buildWalls(2)
+    team.buildWalls(3)
     pass
