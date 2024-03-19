@@ -17,6 +17,7 @@ def moveTo(x, y, Pirate):
         return (position[1] < y) * 2 + 1
 
 
+
 def checkfriends(pirate, quad):
     sum_friend_quadrants = 0
     up = pirate.investigate_up()[1]
