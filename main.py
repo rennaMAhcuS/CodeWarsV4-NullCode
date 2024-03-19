@@ -6,7 +6,9 @@ import scriptred
 import sample_scripts.sample1
 import sample_scripts.sample2
 import sample_scripts.sample3
+import scriptblue_development
+import scriptred_development
 
 if __name__ == "__main__":
-    G = Game((40, 40), scriptred, sample_scripts.sample1)
+    G = Game((40, 40), scriptred_development, scriptblue_development)
     G.run_game()
