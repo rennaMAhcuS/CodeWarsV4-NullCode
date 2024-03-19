@@ -74,8 +74,46 @@ def checkIsland(pirate):
 '''
 
 
+'''
+Pirate Member Functions:
+
+investigate_*()
+getSignal()
+setSignal(sig)
+getTeamSignal()
+setTeamSignal(sig)
+trackPlayers()
+getTotalRum()
+getTotalGunpowder()
+getTotalWood()
+getPosition()
+getDeployPoint()
+getID()
+getDimensionX()
+getDimensionY()
+'''
+
+'''
+Team Member Functions:
+
+buildWalls(island_number) -> bool
+getTeamSignal() -> str
+setTeamSignal(sig)
+getListOfSignals() -> str[]
+trackPlayers() -> str[]
+getTotalPirates()
+getTotalRum()
+getTotalGunpowder()
+getTotalWood()
+getDeployPoint()
+getDimensionX()
+getDimensionY()
+'''
+
+
 def ActPirate(pirate):
     # complete this function
+
     pass
 
 
