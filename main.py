@@ -8,6 +8,7 @@ import sample_scripts.sample2
 import sample_scripts.sample3
 import scriptblue_development
 import scriptred_development
+import script_development
 
 if __name__ == "__main__":
     G = Game((40, 40), scriptred_development, scriptblue_development)
