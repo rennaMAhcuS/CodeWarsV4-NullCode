@@ -1,4 +1,3 @@
-import sys
 from engine.main import Game
 import script
 import scriptblue
