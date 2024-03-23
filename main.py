@@ -1,7 +1,6 @@
 from engine.main import Game
 from random import randrange as rand
-# import script
-import script_development
+import script
 import testing_scripts.script_opponent_A as opponentA
 # import testing_scripts.script_opponent_B as opponentB
 # import testing_scripts.script_opponent_C as opponentC
@@ -10,6 +9,6 @@ import testing_scripts.script_opponent_A as opponentA
 
 if __name__ == "__main__":
     dim = int(rand(40, 65, 2))
-    G = Game((dim, dim), opponentA, script_development)
+    G = Game((dim, dim), opponentA, script)
     # G = Game((20, 20), opponent, script_development)
     G.run_game()
