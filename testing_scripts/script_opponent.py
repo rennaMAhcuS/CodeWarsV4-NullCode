@@ -40,11 +40,7 @@ def CenterNkill(pirate, up, down, left, right, ne, nw, se, sw):
     x, y = pirate.getPosition()
     center = [x, y]
     islNum = 0
-    if (up[:-1] == "island" and down[:-1] == "island" and left[:-1] == "island" and right[:-1] == "island" and ne[
-                                                                                                               :-1] == "island" and nw[
-                                                                                                                                    :-1] == "island" and se[
-                                                                                                                                                         :-1] == "island" and sw[
-                                                                                                                                                                              :-1] == "island"):
+    if (up[:-1] == "island" and down[:-1] == "island" and left[:-1] == "island" and right[:-1] == "island" and ne[:-1] == "island" and nw[:-1] == "island" and se[:-1] == "island" and sw[:-1] == "island"):
         center = [x, y]
         islNum = int(up[-1])
     elif (up[:-1] != "island" and down[:-1] == "island" and left[:-1] == "island" and right[:-1] == "island" and ne[
@@ -323,9 +319,6 @@ def Attack(x_start, y_start, pirate, dimX, dimY, n, x_end, y_end, x, y):
 
 
 def ActPirate(pirate):
-    # print(len(pirate.getTeamSignal().split(" ")))
-    # global List
-    # print(List)
     up = pirate.investigate_up()[0]
     down = pirate.investigate_down()[0]
     left = pirate.investigate_left()[0]
