@@ -7,6 +7,11 @@
     <list default="true" id="204b66e7-3037-4532-9b54-24d81c3023f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_development.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scriptblue.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scriptblue_development.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scriptred.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scriptred_development.py" beforeDir="false" afterPath="$PROJECT_DIR$/scriptred_development.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +141,9 @@
       <workItem from="1711088316962" duration="558000" />
       <workItem from="1711088882197" duration="1650000" />
       <workItem from="1711090592202" duration="1849000" />
-      <workItem from="1711094256786" duration="967000" />
+      <workItem from="1711094256786" duration="1125000" />
+      <workItem from="1711121742321" duration="924000" />
+      <workItem from="1711153925744" duration="1454000" />
     </task>
     <servers />
   </component>
@@ -198,6 +205,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CodeWarsV4$main.coverage" NAME="main Coverage Results" MODIFIED="1711094338765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CodeWarsV4$main.coverage" NAME="main Coverage Results" MODIFIED="1711154957819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

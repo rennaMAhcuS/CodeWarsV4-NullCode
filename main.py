@@ -10,5 +10,5 @@ import scriptred_development
 import script_development
 
 if __name__ == "__main__":
-    G = Game((40, 40), scriptred_development, scriptblue_development)
+    G = Game((40, 40), script_development, script_development)
     G.run_game()
