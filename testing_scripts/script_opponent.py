@@ -324,8 +324,8 @@ def Attack(x_start, y_start, pirate, dimX, dimY, n, x_end, y_end, x, y):
 
 def ActPirate(pirate):
     # print(len(pirate.getTeamSignal().split(" ")))
-    global List
-    print(List)
+    # global List
+    # print(List)
     up = pirate.investigate_up()[0]
     down = pirate.investigate_down()[0]
     left = pirate.investigate_left()[0]

@@ -1,14 +1,11 @@
 from engine.main import Game
-import script
-import scriptblue
-import scriptred
-import sample_scripts.sample1
-import sample_scripts.sample2
-import sample_scripts.sample3
-import scriptblue_development
-import scriptred_development
+# import script
 import script_development
+import sample_scripts.scriptred
+import testing_scripts.script_opponent as opponent
+from random import randrange as rand
 
 if __name__ == "__main__":
-    G = Game((40, 40), script_development, script_development)
+    # dim = rand(2, 65, 2)
+    G = Game((40, 40), sample_scripts.scriptred, sample_scripts.scriptred)
     G.run_game()
