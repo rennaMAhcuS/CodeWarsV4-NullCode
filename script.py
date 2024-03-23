@@ -1,5 +1,4 @@
 import random
-
 # import math
 
 name = "NullCode!"
@@ -561,7 +560,7 @@ def ActPirate(pirate):
         FoundIslands.append(IslandData[1])
         # print(TeamSignalParsed)
 
-    if (int(pirate.getID()) % 11 in range(8)) or pirate.getCurrentFrame() < int(dim * 2.2):
+    if (int(pirate.getID()) % 11 in range(8)) or pirate.getCurrentFrame() < int(dim * 2.25):
         # if int(pirate.getID()) % 5 == 0:
         #     return MovementMid(pirate)
         # elif int(pirate.getID()) % 5 == 1:
@@ -574,7 +573,7 @@ def ActPirate(pirate):
         # elif int(pirate.getID()) % 5 == 4:
         #     # return CircleAround(dimX / 2, dimY / 2, int(dimX / 2), pirate, clockwise=False)
         #     return MovementBin(pirate)
-        if pirate.getCurrentFrame() < int(dim * 0.78):
+        if pirate.getCurrentFrame() < int(dim * 0.69):
             return MovementEnd(pirate)
         elif pirate.getCurrentFrame() < int(dim * 1.6):
             return MovementRevBin(pirate)
@@ -606,7 +605,7 @@ def ActPirate(pirate):
 # Ran on your team, to change team signals and to build walls.
 def ActTeam(team):
     dim = team.getDimensionX()  # = team.getDimensionY()
-    if (team.getCurrentFrame() > int(dim * 2)) and (team.getTotalPirates() > int(dim * 5 / 4)):
+    if team.getCurrentFrame() > int(dim * 2):
         team.buildWalls(1)
         team.buildWalls(2)
         team.buildWalls(3)
