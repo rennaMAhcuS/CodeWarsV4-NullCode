@@ -1,7 +1,7 @@
 import random
 import math
 
-name = "Babbar Sher"
+name = "**OPPONENT**"
 
 
 def moveTo(x, y, Pirate):

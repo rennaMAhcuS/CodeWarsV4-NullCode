@@ -1,5 +1,7 @@
 import random
 
+# import math
+
 name = "NullCode!"
 
 
@@ -124,7 +126,7 @@ def MoveTowards(x, y, Pirate):
 #         return (position[1] > y) * 2 + 1
 
 
-# def circleAround(x, y, radius, Pirate, initial="abc", clockwise=True):
+# def CircleAround(x, y, radius, Pirate, initial="abc", clockwise=True):
 #     position = Pirate.getPosition()
 #     rx = position[0]
 #     ry = position[1]
@@ -148,6 +150,9 @@ def MoveTowards(x, y, Pirate):
 #             pos[(index + (clockwise * 2) - 1) % len(pos)][1],
 #             Pirate,
 #         )
+
+
+############################################################################################
 
 
 def OppDiagonalPoints(x1, y0, x0, y1):
@@ -192,7 +197,50 @@ def map_to_midpoint(n):
     return result
 
 
-def Movement(pirate):
+############################################################################################
+
+
+class TreeNode:
+    def __init__(self, value=0, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def build_balanced_bst(start, end):
+    if start > end:
+        return None
+    mid = (start + end) // 2
+    root = TreeNode(mid + 1)
+    root.left = build_balanced_bst(start, mid - 1)
+    root.right = build_balanced_bst(mid + 1, end)
+    return root
+
+
+def level_order_traversal(root):
+    if not root:
+        return []
+    queue = [root]
+    result = []
+    while queue:
+        current = queue.pop(0)
+        result.append(current.value)
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+    return result
+
+
+def BinSearchTree_sequence(Num):
+    bst_root = build_balanced_bst(0, Num - 1)
+    return level_order_traversal(bst_root)
+
+
+############################################################################################
+
+
+def MovementBin(pirate):
     spawn = pirate.getDeployPoint()
     spawn = (round(spawn[0] / pirate.getDimensionX()) * pirate.getDimensionX(),
              round(spawn[1] / pirate.getDimensionY()) * pirate.getDimensionY())
@@ -209,7 +257,10 @@ def Movement(pirate):
     opponent_spawn = (pirate.getDimensionX() - spawn[0], pirate.getDimensionY() - spawn[1])
 
     TargetDiagonal = OppDiagonalPoints(spawn[0], spawn[1], opponent_spawn[0], opponent_spawn[1])
-    MappingDiagPoints = map_to_midpoint(len(TargetDiagonal))
+    # MappingDiagPoints = map_to_midpoint(len(TargetDiagonal))
+    MappingDiagPoints = BinSearchTree_sequence(len(TargetDiagonal))
+    # MappingDiagPoints = MappingFunction(len(TargetDiagonal))
+
     if pirate.getPosition() == pirate.getDeployPoint():
         pirate.setSignal("01")  # First number abt Reached Diag, second number abt towards opponent_spawn
 
@@ -238,14 +289,267 @@ def Movement(pirate):
     return MoveNumber
 
 
+def MovementRevBin(pirate):
+    spawn = pirate.getDeployPoint()
+    spawn = (round(spawn[0] / pirate.getDimensionX()) * pirate.getDimensionX(),
+             round(spawn[1] / pirate.getDimensionY()) * pirate.getDimensionY())
+    if spawn[0] == 0:
+        spawn = (1, spawn[1])
+    else:
+        spawn = (spawn[0] - 1, spawn[1])
+
+    if spawn[1] == 0:
+        spawn = (spawn[0], 1)
+    else:
+        spawn = (spawn[0], spawn[1] - 1)
+
+    opponent_spawn = (pirate.getDimensionX() - spawn[0], pirate.getDimensionY() - spawn[1])
+
+    TargetDiagonal = OppDiagonalPoints(spawn[0], spawn[1], opponent_spawn[0], opponent_spawn[1])
+    # MappingDiagPoints = map_to_midpoint(len(TargetDiagonal))
+    MappingDiagPoints = BinSearchTree_sequence(len(TargetDiagonal))
+    MappingDiagPoints.reverse()
+    # MappingDiagPoints = MappingFunction(len(TargetDiagonal))
+
+    if pirate.getPosition() == pirate.getDeployPoint():
+        pirate.setSignal("01")  # First number abt Reached Diag, second number abt towards opponent_spawn
+
+    TargetDiagonalX = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][0]
+    TargetDiagonalY = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][1]
+
+    MoveNumber = 0
+
+    if (pirate.getSignal() == "01") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+        MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+    elif (pirate.getSignal() == "01") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+        pirate.setSignal("11")
+    elif (pirate.getSignal() == "11") and pirate.getPosition() != opponent_spawn:
+        MoveNumber = MoveTowards(opponent_spawn[0], opponent_spawn[1], pirate)
+    elif (pirate.getSignal() == "11") and pirate.getPosition() == opponent_spawn:
+        pirate.setSignal("00")
+    elif (pirate.getSignal() == "00") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+        MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+    elif (pirate.getSignal() == "00") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+        pirate.setSignal("10")
+    elif (pirate.getSignal() == "10") and (pirate.getPosition() != spawn):
+        MoveNumber = MoveTowards(spawn[0], spawn[1], pirate)
+    else:
+        pirate.setSignal("01")
+
+    return MoveNumber
+
+
+'''
+def MovementMid(pirate):
+    spawn = pirate.getDeployPoint()
+    spawn = (round(spawn[0] / pirate.getDimensionX()) * pirate.getDimensionX(),
+             round(spawn[1] / pirate.getDimensionY()) * pirate.getDimensionY())
+    if spawn[0] == 0:
+        spawn = (1, spawn[1])
+    else:
+        spawn = (spawn[0] - 1, spawn[1])
+
+    if spawn[1] == 0:
+        spawn = (spawn[0], 1)
+    else:
+        spawn = (spawn[0], spawn[1] - 1)
+
+    opponent_spawn = (pirate.getDimensionX() - spawn[0], pirate.getDimensionY() - spawn[1])
+
+    TargetDiagonal = OppDiagonalPoints(spawn[0], spawn[1], opponent_spawn[0], opponent_spawn[1])
+    MappingDiagPoints = map_to_midpoint(len(TargetDiagonal))
+    # MappingDiagPoints = generate_sequence(len(TargetDiagonal))
+    # MappingDiagPoints = MappingFunction(len(TargetDiagonal))
+
+    if pirate.getPosition() == pirate.getDeployPoint():
+        pirate.setSignal("01")  # First number abt Reached Diag, second number abt towards opponent_spawn
+
+    TargetDiagonalX = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][0]
+    TargetDiagonalY = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][1]
+
+    MoveNumber = 0
+
+    if (pirate.getSignal() == "01") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+        MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+    elif (pirate.getSignal() == "01") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+        pirate.setSignal("11")
+    elif (pirate.getSignal() == "11") and pirate.getPosition() != opponent_spawn:
+        MoveNumber = MoveTowards(opponent_spawn[0], opponent_spawn[1], pirate)
+    elif (pirate.getSignal() == "11") and pirate.getPosition() == opponent_spawn:
+        pirate.setSignal("00")
+    elif (pirate.getSignal() == "00") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+        MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+    elif (pirate.getSignal() == "00") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+        pirate.setSignal("10")
+    elif (pirate.getSignal() == "10") and (pirate.getPosition() != spawn):
+        MoveNumber = MoveTowards(spawn[0], spawn[1], pirate)
+    else:
+        pirate.setSignal("01")
+
+    return MoveNumber
+'''
+
+
+# Inspiration from MovementMid function
+def MovementEnd(pirate):
+    spawn = pirate.getDeployPoint()
+    spawn = (round(spawn[0] / pirate.getDimensionX()) * pirate.getDimensionX(),
+             round(spawn[1] / pirate.getDimensionY()) * pirate.getDimensionY())
+    if spawn[0] == 0:
+        spawn = (1, spawn[1])
+    else:
+        spawn = (spawn[0] - 1, spawn[1])
+
+    if spawn[1] == 0:
+        spawn = (spawn[0], 1)
+    else:
+        spawn = (spawn[0], spawn[1] - 1)
+
+    opponent_spawn = (pirate.getDimensionX() - spawn[0], pirate.getDimensionY() - spawn[1])
+
+    TargetDiagonal = OppDiagonalPoints(spawn[0], spawn[1], opponent_spawn[0], opponent_spawn[1])
+    MappingDiagPoints = map_to_midpoint(len(TargetDiagonal))
+    MappingDiagPoints.reverse()
+    # MappingDiagPoints = generate_sequence(len(TargetDiagonal))
+    # MappingDiagPoints = MappingFunction(len(TargetDiagonal))
+
+    if pirate.getPosition() == pirate.getDeployPoint():
+        pirate.setSignal("01")  # First number abt Reached Diag, second number abt towards opponent_spawn
+
+    TargetDiagonalX = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][0]
+    TargetDiagonalY = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][1]
+
+    MoveNumber = 0
+
+    if (pirate.getSignal() == "01") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+        MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+    elif (pirate.getSignal() == "01") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+        pirate.setSignal("11")
+    elif (pirate.getSignal() == "11") and pirate.getPosition() != opponent_spawn:
+        MoveNumber = MoveTowards(opponent_spawn[0], opponent_spawn[1], pirate)
+    elif (pirate.getSignal() == "11") and pirate.getPosition() == opponent_spawn:
+        pirate.setSignal("00")
+    elif (pirate.getSignal() == "00") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+        MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+    elif (pirate.getSignal() == "00") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+        pirate.setSignal("10")
+    elif (pirate.getSignal() == "10") and (pirate.getPosition() != spawn):
+        MoveNumber = MoveTowards(spawn[0], spawn[1], pirate)
+    else:
+        pirate.setSignal("01")
+
+    return MoveNumber
+
+
+# EndA and EndB
+# def MovementEndA(pirate):
+#     spawn = pirate.getDeployPoint()
+#     spawn = (round(spawn[0] / pirate.getDimensionX()) * pirate.getDimensionX(),
+#              round(spawn[1] / pirate.getDimensionY()) * pirate.getDimensionY())
+#     if spawn[0] == 0:
+#         spawn = (1, spawn[1])
+#     else:
+#         spawn = (spawn[0] - 1, spawn[1])
+#
+#     if spawn[1] == 0:
+#         spawn = (spawn[0], 1)
+#     else:
+#         spawn = (spawn[0], spawn[1] - 1)
+#
+#     opponent_spawn = (pirate.getDimensionX() - spawn[0], pirate.getDimensionY() - spawn[1])
+#
+#     TargetDiagonal = OppDiagonalPoints(spawn[0], spawn[1], opponent_spawn[0], opponent_spawn[1])
+#     MappingDiagPoints = range(len(TargetDiagonal), 0, -1)
+#     # MappingDiagPoints = generate_sequence(len(TargetDiagonal))
+#     # MappingDiagPoints = MappingFunction(len(TargetDiagonal))
+#
+#     if pirate.getPosition() == pirate.getDeployPoint():
+#         pirate.setSignal("01")  # First number abt Reached Diag, second number abt towards opponent_spawn
+#
+#     TargetDiagonalX = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][0]
+#     TargetDiagonalY = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][1]
+#
+#     MoveNumber = 0
+#
+#     if (pirate.getSignal() == "01") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+#         MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+#     elif (pirate.getSignal() == "01") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+#         pirate.setSignal("11")
+#     elif (pirate.getSignal() == "11") and pirate.getPosition() != opponent_spawn:
+#         MoveNumber = MoveTowards(opponent_spawn[0], opponent_spawn[1], pirate)
+#     elif (pirate.getSignal() == "11") and pirate.getPosition() == opponent_spawn:
+#         pirate.setSignal("00")
+#     elif (pirate.getSignal() == "00") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+#         MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+#     elif (pirate.getSignal() == "00") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+#         pirate.setSignal("10")
+#     elif (pirate.getSignal() == "10") and (pirate.getPosition() != spawn):
+#         MoveNumber = MoveTowards(spawn[0], spawn[1], pirate)
+#     else:
+#         pirate.setSignal("01")
+#
+#     return MoveNumber
+#
+#
+# def MovementEndB(pirate):
+#     spawn = pirate.getDeployPoint()
+#     spawn = (round(spawn[0] / pirate.getDimensionX()) * pirate.getDimensionX(),
+#              round(spawn[1] / pirate.getDimensionY()) * pirate.getDimensionY())
+#     if spawn[0] == 0:
+#         spawn = (1, spawn[1])
+#     else:
+#         spawn = (spawn[0] - 1, spawn[1])
+#
+#     if spawn[1] == 0:
+#         spawn = (spawn[0], 1)
+#     else:
+#         spawn = (spawn[0], spawn[1] - 1)
+#
+#     opponent_spawn = (pirate.getDimensionX() - spawn[0], pirate.getDimensionY() - spawn[1])
+#
+#     TargetDiagonal = OppDiagonalPoints(spawn[0], spawn[1], opponent_spawn[0], opponent_spawn[1])
+#     MappingDiagPoints = range(1, len(TargetDiagonal) + 1)
+#     # MappingDiagPoints = generate_sequence(len(TargetDiagonal))
+#     # MappingDiagPoints = MappingFunction(len(TargetDiagonal))
+#
+#     if pirate.getPosition() == pirate.getDeployPoint():
+#         pirate.setSignal("01")  # First number abt Reached Diag, second number abt towards opponent_spawn
+#
+#     TargetDiagonalX = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][0]
+#     TargetDiagonalY = TargetDiagonal[MappingDiagPoints[int(int(pirate.getID()) % len(TargetDiagonal))] - 1][1]
+#
+#     MoveNumber = 0
+#
+#     if (pirate.getSignal() == "01") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+#         MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+#     elif (pirate.getSignal() == "01") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+#         pirate.setSignal("11")
+#     elif (pirate.getSignal() == "11") and pirate.getPosition() != opponent_spawn:
+#         MoveNumber = MoveTowards(opponent_spawn[0], opponent_spawn[1], pirate)
+#     elif (pirate.getSignal() == "11") and pirate.getPosition() == opponent_spawn:
+#         pirate.setSignal("00")
+#     elif (pirate.getSignal() == "00") and (pirate.getPosition() != (TargetDiagonalX, TargetDiagonalY)):
+#         MoveNumber = MoveTowards(TargetDiagonalX, TargetDiagonalY, pirate)
+#     elif (pirate.getSignal() == "00") and (pirate.getPosition() == (TargetDiagonalX, TargetDiagonalY)):
+#         pirate.setSignal("10")
+#     elif (pirate.getSignal() == "10") and (pirate.getPosition() != spawn):
+#         MoveNumber = MoveTowards(spawn[0], spawn[1], pirate)
+#     else:
+#         pirate.setSignal("01")
+#
+#     return MoveNumber
+
+
 def ActPirate(pirate):
+    dim = pirate.getDimensionX()  # = pirate.getDimensionY()
+
     IslandData = IslandCenter_and_Number(pirate)
     IslandData = ((str(IslandData[0][0]), str(IslandData[0][1])), str(IslandData[1]))
 
     TeamSignal = str(pirate.getTeamSignal())
     TeamSignalParsed = TeamSignal.split(".")
-    FoundIslands = []
 
+    FoundIslands = []
     for i in TeamSignalParsed:
         if i != "":
             FoundIslands.append(str(i[0]))
@@ -255,10 +559,27 @@ def ActPirate(pirate):
         NewSignal = pirate.getTeamSignal() + IslandData[1] + ":" + IslandData[0][0] + "," + IslandData[0][1] + "."
         pirate.setTeamSignal(NewSignal)
         FoundIslands.append(IslandData[1])
-        print(TeamSignalParsed)
+        # print(TeamSignalParsed)
 
-    if int(pirate.getID()) % 11 in range(8):
-        return Movement(pirate)
+    if (int(pirate.getID()) % 11 in range(8)) or pirate.getCurrentFrame() < int(dim * 2.2):
+        # if int(pirate.getID()) % 5 == 0:
+        #     return MovementMid(pirate)
+        # elif int(pirate.getID()) % 5 == 1:
+        #     return MovementEndA(pirate)
+        # elif int(pirate.getID()) % 5 == 2:
+        #     return MovementEndB(pirate)
+        # elif int(pirate.getID()) % 5 == 3:
+        #     # return CircleAround(dimX / 2, dimY / 2, int(dimX / 2), pirate)
+        #     return MovementMid(pirate)
+        # elif int(pirate.getID()) % 5 == 4:
+        #     # return CircleAround(dimX / 2, dimY / 2, int(dimX / 2), pirate, clockwise=False)
+        #     return MovementBin(pirate)
+        if pirate.getCurrentFrame() < int(dim * 0.78):
+            return MovementEnd(pirate)
+        elif pirate.getCurrentFrame() < int(dim * 1.6):
+            return MovementRevBin(pirate)
+        else:
+            return MovementBin(pirate)
     else:
         if str(int(pirate.getID()) % 11 - 7) in FoundIslands:
 
@@ -271,22 +592,22 @@ def ActPirate(pirate):
                         break
 
             if PirateIslandData != "":
-                PirateIslandCoordinateX = int(PirateIslandData.split(":")[1].split(",")[0])
-                PirateIslandCoordinateY = int(PirateIslandData.split(":")[1].split(",")[1])
+                PirateIslandCoordinateX = int(PirateIslandData.split(":")[1].split(",")[0]) + random.choice([1, 0, -1])
+                PirateIslandCoordinateY = int(PirateIslandData.split(":")[1].split(",")[1]) + random.choice([1, 0, -1])
 
                 return MoveTowards(PirateIslandCoordinateX, PirateIslandCoordinateY, pirate)
-            else:
-                return Movement(pirate)
         else:
-            return Movement(pirate)
+            return MovementBin(pirate)
+
     pass
 
-    # A function that takes a team as an argument, and is not expected to return anything.
-    # Ran on your team, to change team signals and to build walls.
 
-
+# A function that takes a team as an argument, and is not expected to return anything.
+# Ran on your team, to change team signals and to build walls.
 def ActTeam(team):
-    team.buildWalls(1)
-    team.buildWalls(2)
-    team.buildWalls(3)
+    dim = team.getDimensionX()  # = team.getDimensionY()
+    if (team.getCurrentFrame() > int(dim * 2)) and (team.getTotalPirates() > int(dim * 5 / 4)):
+        team.buildWalls(1)
+        team.buildWalls(2)
+        team.buildWalls(3)
     pass
