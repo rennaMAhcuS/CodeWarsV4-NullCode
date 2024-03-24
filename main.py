@@ -9,6 +9,6 @@ import testing_scripts.script_opponent_A as opponentA
 
 if __name__ == "__main__":
     dim = int(rand(40, 65, 2))
+    # dim = 40
     G = Game((dim, dim), opponentA, script)
-    # G = Game((20, 20), opponent, script_development)
     G.run_game()
