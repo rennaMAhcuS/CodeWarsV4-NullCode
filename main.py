@@ -2,9 +2,9 @@ from engine.main import Game
 from random import randrange as rand
 import script
 import testing_scripts.script_opponent_A as opponentA
-# import testing_scripts.script_opponent_B as opponentB
-# import testing_scripts.script_opponent_C as opponentC
-# import testing_scripts.script_opponent_D as opponentD
+import testing_scripts.script_opponent_B as opponentB
+import testing_scripts.script_opponent_C as opponentC
+import testing_scripts.script_opponent_D as opponentD
 
 
 if __name__ == "__main__":
