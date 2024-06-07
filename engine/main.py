@@ -22,6 +22,7 @@ status_to_team = ["Blue", "Neutral", "Red"]
 root = tkinter.Tk()
 root.withdraw()
 
+
 class Game:
     def __init__(self, dim, red_team, blue_team):
         pygame.init()
@@ -132,7 +133,7 @@ class Game:
 
     def create_map(self):
         """Take info about __collectibles and create the map"""
-        im = np.zeros((self.__dim))
+        im = np.zeros(self.__dim)
 
         size = self.__dim[0] * self.__dim[1]
         frac = size / 16
@@ -141,10 +142,10 @@ class Game:
             x = random.randint(0, self.__dim[0] - 1)
             y = random.randint(0, self.__dim[1] - 1)
             if (
-                im[x][y] == 0
-                and (x, y) not in self.__island1.coordi
-                and (x, y) not in self.__island2.coordi
-                and (x, y) not in self.__island3.coordi
+                    im[x][y] == 0
+                    and (x, y) not in self.__island1.coordi
+                    and (x, y) not in self.__island2.coordi
+                    and (x, y) not in self.__island3.coordi
             ):
                 self.__rum.add(Collectible(self.screen, x, y, -1))
                 im[x][y] = -1
@@ -153,10 +154,10 @@ class Game:
             x = random.randint(0, self.__dim[0] - 1)
             y = random.randint(0, self.__dim[1] - 1)
             if (
-                im[x][y] == 0
-                and (x, y) not in self.__island1.coordi
-                and (x, y) not in self.__island2.coordi
-                and (x, y) not in self.__island3.coordi
+                    im[x][y] == 0
+                    and (x, y) not in self.__island1.coordi
+                    and (x, y) not in self.__island2.coordi
+                    and (x, y) not in self.__island3.coordi
             ):
                 self.__gunpowder.add(Collectible(self.screen, x, y, -2))
                 im[x][y] = -2
@@ -165,10 +166,10 @@ class Game:
             x = random.randint(0, self.__dim[0] - 1)
             y = random.randint(0, self.__dim[1] - 1)
             if (
-                im[x][y] == 0
-                and (x, y) not in self.__island1.coordi
-                and (x, y) not in self.__island2.coordi
-                and (x, y) not in self.__island3.coordi
+                    im[x][y] == 0
+                    and (x, y) not in self.__island1.coordi
+                    and (x, y) not in self.__island2.coordi
+                    and (x, y) not in self.__island3.coordi
             ):
                 self.__wood.add(Collectible(self.screen, x, y, -3))
                 im[x][y] = -3
@@ -330,7 +331,8 @@ class Game:
                     with open("error_log.txt", "w") as file:
                         file.write(traceback.format_exc())
 
-                    messagebox.showerror('Script Error', f'{current_script_name} threw an error:\n{e}\n\nPlease check the error_log.txt file for more details.')
+                    messagebox.showerror('Script Error',
+                                         f'{current_script_name} threw an error:\n{e}\n\nPlease check the error_log.txt file for more details.')
                     exit(0)
 
                 self.__island1.drawWalls()
@@ -373,7 +375,6 @@ class Game:
                 for rect in collisions:
                     self.screen.blit(self.explosion, rect)
 
-
                 if iter % 10 == 0:
                     self.replenish()
 
@@ -392,71 +393,71 @@ class Game:
     def discovery(self):
         for pirate in self.__red_pirates:
             if (
-                pirate.investigate_up()[0] == "island1"
-                or pirate.investigate_down()[0] == "island1"
-                or pirate.investigate_left()[0] == "island1"
-                or pirate.investigate_right()[0] == "island1"
-                or pirate.investigate_nw()[0] == "island1"
-                or pirate.investigate_ne()[0] == "island1"
-                or pirate.investigate_sw()[0] == "island1"
-                or pirate.investigate_se()[0] == "island1"
+                    pirate.investigate_up()[0] == "island1"
+                    or pirate.investigate_down()[0] == "island1"
+                    or pirate.investigate_left()[0] == "island1"
+                    or pirate.investigate_right()[0] == "island1"
+                    or pirate.investigate_nw()[0] == "island1"
+                    or pirate.investigate_ne()[0] == "island1"
+                    or pirate.investigate_sw()[0] == "island1"
+                    or pirate.investigate_se()[0] == "island1"
             ):
                 pirate._Pirate__myTeam._Team__flag1 = self.flag1
             elif (
-                pirate.investigate_up()[0] == "island2"
-                or pirate.investigate_down()[0] == "island2"
-                or pirate.investigate_left()[0] == "island2"
-                or pirate.investigate_right()[0] == "island2"
-                or pirate.investigate_nw()[0] == "island2"
-                or pirate.investigate_ne()[0] == "island2"
-                or pirate.investigate_sw()[0] == "island2"
-                or pirate.investigate_se()[0] == "island2"
+                    pirate.investigate_up()[0] == "island2"
+                    or pirate.investigate_down()[0] == "island2"
+                    or pirate.investigate_left()[0] == "island2"
+                    or pirate.investigate_right()[0] == "island2"
+                    or pirate.investigate_nw()[0] == "island2"
+                    or pirate.investigate_ne()[0] == "island2"
+                    or pirate.investigate_sw()[0] == "island2"
+                    or pirate.investigate_se()[0] == "island2"
             ):
                 pirate._Pirate__myTeam._Team__flag2 = self.flag2
             elif (
-                pirate.investigate_up()[0] == "island3"
-                or pirate.investigate_down()[0] == "island3"
-                or pirate.investigate_left()[0] == "island3"
-                or pirate.investigate_right()[0] == "island3"
-                or pirate.investigate_nw()[0] == "island3"
-                or pirate.investigate_ne()[0] == "island3"
-                or pirate.investigate_sw()[0] == "island3"
-                or pirate.investigate_se()[0] == "island3"
+                    pirate.investigate_up()[0] == "island3"
+                    or pirate.investigate_down()[0] == "island3"
+                    or pirate.investigate_left()[0] == "island3"
+                    or pirate.investigate_right()[0] == "island3"
+                    or pirate.investigate_nw()[0] == "island3"
+                    or pirate.investigate_ne()[0] == "island3"
+                    or pirate.investigate_sw()[0] == "island3"
+                    or pirate.investigate_se()[0] == "island3"
             ):
                 pirate._Pirate__myTeam._Team__flag3 = self.flag3
 
         for pirate in self.__blue_pirates:
             if (
-                pirate.investigate_up()[0] == "island1"
-                or pirate.investigate_down()[0] == "island1"
-                or pirate.investigate_left()[0] == "island1"
-                or pirate.investigate_right()[0] == "island1"
-                or pirate.investigate_nw()[0] == "island1"
-                or pirate.investigate_ne()[0] == "island1"
-                or pirate.investigate_sw()[0] == "island1"
-                or pirate.investigate_se()[0] == "island1"
+                    pirate.investigate_up()[0] == "island1"
+                    or pirate.investigate_down()[0] == "island1"
+                    or pirate.investigate_left()[0] == "island1"
+                    or pirate.investigate_right()[0] == "island1"
+                    or pirate.investigate_nw()[0] == "island1"
+                    or pirate.investigate_ne()[0] == "island1"
+                    or pirate.investigate_sw()[0] == "island1"
+                    or pirate.investigate_se()[0] == "island1"
             ):
                 pirate._Pirate__myTeam._Team__flag1 = self.flag1
             elif (
-                pirate.investigate_up()[0] == "island2"
-                or pirate.investigate_down()[0] == "island2"
-                or pirate.investigate_left()[0] == "island2"
-                or pirate.investigate_right()[0] == "island2"
-                or pirate.investigate_nw()[0] == "island2"
-                or pirate.investigate_ne()[0] == "island2"
-                or pirate.investigate_sw()[0] == "island2"
-                or pirate.investigate_se()[0] == "island2"
+                    pirate.investigate_up()[0] == "island2"
+                    or pirate.investigate_down()[0] == "island2"
+                    or pirate.investigate_left()[0] == "island2"
+                    or pirate.investigate_right()[0] == "island2"
+                    or pirate.investigate_nw()[0] == "island2"
+                    or pirate.investigate_ne()[0] == "island2"
+                    or pirate.investigate_sw()[0] == "island2"
+                    or pirate.investigate_se()[0] == "island2"
             ):
                 pirate._Pirate__myTeam._Team__flag2 = self.flag2
             elif (
-                pirate.investigate_up()[0] == "island3"
-                or pirate.investigate_down()[0] == "island3"
-                or pirate.investigate_left()[0] == "island3"
-                or pirate.investigate_right()[0] == "island3"
-                or pirate.investigate_nw()[0] == "island3"
-                or pirate.investigate_ne()[0] == "island3"
-                or pirate.investigate_sw()[0] == "island3"
-                or pirate.investigate_se()[0] == "island3"
+                    pirate.investigate_up()[0] == "island3"
+                    or pirate.investigate_down()[0] == "island3"
+                    or pirate.investigate_left()[0] == "island3"
+                    or pirate.investigate_right()[0] == "island3"
+                    or pirate.investigate_nw()[0] == "island3"
+                    or pirate.investigate_ne()[0] == "island3"
+                    or pirate.investigate_sw()[0] == "island3"
+                    or pirate.investigate_se()[0] == "island3"
             ):
                 pirate._Pirate__myTeam._Team__flag3 = self.flag3
 
@@ -475,8 +476,8 @@ class Game:
                     continue
 
                 if (
-                    self.__blue_team._Team__gunpowder >= 100
-                    and self.__red_team._Team__gunpowder >= 100
+                        self.__blue_team._Team__gunpowder >= 100
+                        and self.__red_team._Team__gunpowder >= 100
                 ):
                     to_kill.add(r)
                     to_kill.add(b)
@@ -550,22 +551,22 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse = pygame.mouse.get_pos()
                 if (
-                    self.slow_rect.x
-                    <= mouse[0]
-                    <= self.slow_rect.x + self.slow_rect.width
-                    and self.slow_rect.y
-                    <= mouse[1]
-                    <= self.slow_rect.y + self.slow_rect.height
-                    and self.rate > 2
+                        self.slow_rect.x
+                        <= mouse[0]
+                        <= self.slow_rect.x + self.slow_rect.width
+                        and self.slow_rect.y
+                        <= mouse[1]
+                        <= self.slow_rect.y + self.slow_rect.height
+                        and self.rate > 2
                 ):
                     self.rate -= 2
                 elif (
-                    self.fast_rect.x
-                    <= mouse[0]
-                    <= self.fast_rect.x + self.fast_rect.width
-                    and self.fast_rect.y
-                    <= mouse[1]
-                    <= self.fast_rect.y + self.slow_rect.height
+                        self.fast_rect.x
+                        <= mouse[0]
+                        <= self.fast_rect.x + self.fast_rect.width
+                        and self.fast_rect.y
+                        <= mouse[1]
+                        <= self.fast_rect.y + self.slow_rect.height
                 ):
                     self.rate += 2
                 # elif (
@@ -599,10 +600,10 @@ class Game:
                         x = random.randint(0, self.__dim[0] - 1)
                         y = random.randint(0, self.__dim[1] - 1)
                         if (
-                            self.__collectibles[x][y] == 0
-                            and (x, y) not in self.__island1.coordi
-                            and (x, y) not in self.__island2.coordi
-                            and (x, y) not in self.__island3.coordi
+                                self.__collectibles[x][y] == 0
+                                and (x, y) not in self.__island1.coordi
+                                and (x, y) not in self.__island2.coordi
+                                and (x, y) not in self.__island3.coordi
                         ):
                             self.__gunpowder.add(Collectible(self.screen, x, y, -2))
                             self.__collectibles[x][y] = -2
@@ -776,7 +777,7 @@ class Game:
             for v in value:
                 if v.__class__.__name__ != "Pirate":
                     continue
-                
+
                 if v.type == "red":
                     entr |= 1
                 else:
@@ -788,8 +789,8 @@ class Game:
         for key in self.__PositionToPirate.keys():
             value = self.__PositionToPirate[key]
             if (
-                self.__collectibles[key[0]][key[1]] != 0
-                and self.__Pirates[key[0]][key[1]] & 0b11
+                    self.__collectibles[key[0]][key[1]] != 0
+                    and self.__Pirates[key[0]][key[1]] & 0b11
             ):
                 val = self.__collectibles[key[0]][key[1]]
                 self.__collectibles[key[0]][key[1]] = 0
@@ -865,21 +866,21 @@ class Game:
                 self.winner("red")
             else:
                 if (
-                    0.5 * self.__red_team._Team__rum
-                    + 0.3 * self.__red_team._Team__gunpowder
-                    + 0.2 * self.__red_team._Team__wood
-                    > 0.5 * self.__blue_team._Team__rum
-                    + 0.3 * self.__blue_team._Team__gunpowder
-                    + 0.2 * self.__blue_team._Team__wood
+                        0.5 * self.__red_team._Team__rum
+                        + 0.3 * self.__red_team._Team__gunpowder
+                        + 0.2 * self.__red_team._Team__wood
+                        > 0.5 * self.__blue_team._Team__rum
+                        + 0.3 * self.__blue_team._Team__gunpowder
+                        + 0.2 * self.__blue_team._Team__wood
                 ):
                     self.winner("red")
                 elif (
-                    0.5 * self.__red_team._Team__rum
-                    + 0.3 * self.__red_team._Team__gunpowder
-                    + 0.2 * self.__red_team._Team__wood
-                    < 0.5 * self.__blue_team._Team__rum
-                    + 0.3 * self.__blue_team._Team__gunpowder
-                    + 0.2 * self.__blue_team._Team__wood
+                        0.5 * self.__red_team._Team__rum
+                        + 0.3 * self.__red_team._Team__gunpowder
+                        + 0.2 * self.__red_team._Team__wood
+                        < 0.5 * self.__blue_team._Team__rum
+                        + 0.3 * self.__blue_team._Team__gunpowder
+                        + 0.2 * self.__blue_team._Team__wood
                 ):
                     self.winner("blue")
                 else:
