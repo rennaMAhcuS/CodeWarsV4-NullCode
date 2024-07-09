@@ -1,0 +1,1 @@
+# CodeWars - NullCode
